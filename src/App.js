@@ -1,20 +1,42 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import Formulario from './components/Formulario';
 import Cita from './components/Cita';
 
 
 
 function App() {
+  
+  //citas en el local Storage
+  const citasIniciales = localStorage.getItem('citas');
 
 
   //Arreglo de citas
   const [citas,guardarCitas]= useState([]);
+
+  //Use Effect para realizar ciertas operaciones cuendo el state cambia
+
+  useEffect( () => {
+
+    console.log('listo');
+
+  }, [citas] );
 
   //Función que tome las citas actuales y agregue la nueva
 
   const crearCita = cita => {
     guardarCitas([ ...citas,cita ]);
   }
+
+
+  //Función que elimina una cita por su id
+  const eliminarCita = id => {
+
+    const nuevasCitas = citas.filter(cita => cita.id !== id);
+    guardarCitas(nuevasCitas);
+  }
+
+  //Mensaje Condicional
+  const titulo = citas.length === 0 ? 'No hay citas' : 'Administra tus Citas'
 
   return (
     <Fragment>
@@ -28,12 +50,13 @@ function App() {
         </div>
 
         <div className="one-half column">
-          <h2>Administra tus citas</h2>
+            <h2>{titulo}</h2>
           {citas.map( cita => (
 
             <Cita 
             key={cita.id}
             cita={cita}
+            eliminarCita={eliminarCita}
             
             />
 
