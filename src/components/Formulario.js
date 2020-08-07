@@ -47,7 +47,7 @@ const submitCita = e => {
    //Asignar un ID
    cita.id = uuid();
    //Crear la cita
-   crearCita();
+   crearCita(cita);
 
    //Reiniciar el Form
 
