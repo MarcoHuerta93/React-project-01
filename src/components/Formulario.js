@@ -41,7 +41,7 @@ const submitCita = e => {
       return;
    }
    //Eliminar mensaje previo
-      actualizarError(false);
+      actualizarError(false); 
 
    
    //Asignar un ID

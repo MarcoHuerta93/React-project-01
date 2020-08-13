@@ -7,17 +7,27 @@ import Cita from './components/Cita';
 function App() {
   
   //citas en el local Storage
-  const citasIniciales = localStorage.getItem('citas');
+  let citasIniciales = JSON.parse( localStorage.getItem('citas'));
+  if (!citasIniciales) {
+
+    citasIniciales = [];
+    
+  }
 
 
   //Arreglo de citas
-  const [citas,guardarCitas]= useState([]);
+  const [citas,guardarCitas]= useState(citasIniciales);
 
   //Use Effect para realizar ciertas operaciones cuendo el state cambia
 
   useEffect( () => {
 
-    console.log('listo');
+    if (citasIniciales) {
+      localStorage.setItem('citas', JSON.stringify(citas))
+      
+    }else{
+      localStorage.setItem('citas', JSON.stringify([]))
+    }
 
   }, [citas] );
 
